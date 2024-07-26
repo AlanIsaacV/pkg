@@ -4,11 +4,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gofiber/fiber/v2"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"app/pkg/gcp"
+	"github.com/AlanIsaacV/gcp"
 )
 
 func LoggerHandler(c *fiber.Ctx) error {

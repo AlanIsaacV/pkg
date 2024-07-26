@@ -11,7 +11,7 @@ import (
 
 	"github.com/rs/zerolog/log"
 
-	"app/pkg/gcp"
+	"github.com/AlanIsaacV/gcp"
 )
 
 var (
