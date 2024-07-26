@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
