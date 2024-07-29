@@ -37,7 +37,6 @@ func LoggerHandler(c *fiber.Ctx) error {
 			l.Str("logging.googleapis.com/trace", trace)
 		}
 	}
-
-	c.SetUserContext(l.Logger().WithContext(c.UserContext()))
+	c.SetUserContext(UpdateCtx(c.UserContext(), l))
 	return c.Next()
 }
