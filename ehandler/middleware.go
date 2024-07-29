@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gofiber/fiber/v2"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
@@ -19,12 +18,15 @@ func LoggerHandler(c *fiber.Ctx) error {
 		return c.Next()
 	}
 
-	l := log.With().Bytes("requestBody", c.Body()).Dict(
+	l := log.With().Dict(
 		"httpRequest", zerolog.Dict().
 			Str("requestMethod", c.Method()).
 			Str("requestUrl", c.OriginalURL()).
 			Str("userAgent", c.Get("user-agent")),
 	)
+	if body := c.BodyRaw(); len(body) > 0 {
+		l.Bytes("requestBody", body)
+	}
 
 	if trace := c.Get("x-cloud-trace-context"); trace != "" {
 		trace = fmt.Sprintf(
