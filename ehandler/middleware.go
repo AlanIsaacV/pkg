@@ -1,6 +1,7 @@
 package ehandler
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
@@ -13,7 +14,6 @@ import (
 
 func LoggerHandler(c *fiber.Ctx) error {
 	gcpConfig := gcp.Config()
-
 	if gcpConfig.Service == "" {
 		c.SetUserContext(log.Logger.WithContext(c.UserContext()))
 		return c.Next()
@@ -26,7 +26,7 @@ func LoggerHandler(c *fiber.Ctx) error {
 			Str("userAgent", c.Get("user-agent")),
 	)
 	if body := c.BodyRaw(); len(body) > 0 {
-		l.Bytes("requestBody", body)
+		l = l.RawJSON("requestBody", body)
 	}
 
 	if trace := c.Get("x-cloud-trace-context"); trace != "" {
@@ -35,9 +35,10 @@ func LoggerHandler(c *fiber.Ctx) error {
 			strings.Split(trace, "/")[0],
 		)
 		if trace != "" {
-			l.Str("logging.googleapis.com/trace", trace)
+			l = l.Str("logging.googleapis.com/trace", trace)
 		}
 	}
-	c.SetUserContext(UpdateCtx(c.UserContext(), l))
+
+	c.SetUserContext(l.Logger().WithContext(context.Background()))
 	return c.Next()
 }
