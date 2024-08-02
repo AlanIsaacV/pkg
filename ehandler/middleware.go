@@ -26,7 +26,7 @@ func LoggerHandler(c *fiber.Ctx) error {
 			Str("userAgent", c.Get("user-agent")),
 	)
 	if body := c.BodyRaw(); len(body) > 0 {
-		l = l.RawJSON("requestBody", body)
+		l = l.Bytes("requestBody", body)
 	}
 
 	if trace := c.Get("x-cloud-trace-context"); trace != "" {
