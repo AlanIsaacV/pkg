@@ -8,7 +8,9 @@ import (
 )
 
 type Settings struct {
-	Countries []string
+	Countries   []string
+	MarketOpen  int `default:"0" envconfig:"MARKET_OPEN"`
+	MarketClose int `default:"0" envconfig:"MARKET_CLOSE"`
 }
 
 var (
