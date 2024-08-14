@@ -1,14 +1,16 @@
 package wday
 
-import "github.com/cornelk/hashmap"
+import (
+	"github.com/alphadose/haxmap"
+)
 
 type Empty struct{}
 
 var (
 	void       = Empty{}
-	holidaysCO = hashmap.NewSized[uint16, Empty](18)
-	holidaysCL = hashmap.NewSized[uint16, Empty](13)
-	holidaysPE = hashmap.NewSized[uint16, Empty](13)
+	holidaysCO = haxmap.New[uint16, Empty](18)
+	holidaysCL = haxmap.New[uint16, Empty](13)
+	holidaysPE = haxmap.New[uint16, Empty](13)
 )
 
 func initCO() {

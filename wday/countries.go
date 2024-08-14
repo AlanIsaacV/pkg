@@ -1,8 +1,10 @@
 package wday
 
-import "github.com/cornelk/hashmap"
+import (
+	"github.com/alphadose/haxmap"
+)
 
-func getHolidays(country string) *hashmap.Map[uint16, Empty] {
+func getHolidays(country string) *haxmap.Map[uint16, Empty] {
 	switch country {
 	case "CO":
 		return holidaysCO
