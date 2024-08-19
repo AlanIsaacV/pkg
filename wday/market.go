@@ -2,6 +2,10 @@ package wday
 
 import "time"
 
+func IsMarketOpenNow() bool {
+	return IsMarketOpen(time.Now())
+}
+
 func IsMarketOpen(currentTime time.Time) bool {
 	c := Config()
 
@@ -10,5 +14,5 @@ func IsMarketOpen(currentTime time.Time) bool {
 	}
 
 	currentInt := currentTime.Hour()*100 + currentTime.Minute()
-	return c.MarketOpen < currentInt && currentInt > c.MarketClose
+	return currentInt >= c.MarketOpen && currentInt < c.MarketClose
 }
